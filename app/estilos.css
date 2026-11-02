@@ -1,0 +1,132 @@
+:root {
+  --fondo: #f4f5f7;
+  --tarjeta: #ffffff;
+  --texto: #1d2433;
+  --suave: #5b6475;
+  --borde: #dde1e8;
+  --azul: #1f4e8c;
+  --rojo: #b3261e;
+  --verde: #1e7a46;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, "Segoe UI", sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+  line-height: 1.45;
+}
+
+header {
+  background: var(--azul);
+  color: #fff;
+  padding: 0.8rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.5rem;
+  align-items: center;
+}
+header h1 { font-size: 1.25rem; margin: 0; }
+#menu { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+#menu button { background: transparent; color: #fff; border-color: rgba(255,255,255,0.4); }
+#menu button.activo { background: #fff; color: var(--azul); }
+
+main { max-width: 1200px; margin: 0 auto; padding: 1rem; }
+h2 { margin: 0.5rem 0 1rem; }
+h3 { margin: 0 0 0.6rem; font-size: 1.05rem; }
+
+.tarjeta {
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.dos-columnas { display: grid; grid-template-columns: minmax(260px, 340px) 1fr; gap: 1rem; align-items: start; }
+@media (max-width: 800px) { .dos-columnas { grid-template-columns: 1fr; } }
+#tabla { overflow-x: auto; }
+
+button {
+  font: inherit;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--texto);
+  cursor: pointer;
+}
+button.principal { background: var(--azul); color: #fff; border-color: var(--azul); }
+button.peligro { color: var(--rojo); border-color: var(--rojo); }
+
+.campo { margin-bottom: 0.8rem; }
+.campo label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.2rem; }
+input, select, textarea {
+  font: inherit;
+  width: 100%;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+}
+.campo.invalido input, .campo.invalido select, .campo.invalido textarea, .campo.invalido .checks {
+  border-color: var(--rojo);
+  outline: 2px solid rgba(179, 38, 30, 0.2);
+}
+.checks { display: flex; flex-wrap: wrap; gap: 0.3rem 0.9rem; border: 1px solid transparent; border-radius: 6px; }
+.checks label { font-weight: normal; display: flex; gap: 0.3rem; align-items: center; }
+.checks input { width: auto; }
+.botones { display: flex; gap: 0.5rem; }
+
+.en-linea { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-top: 0.8rem; }
+.en-linea label { display: flex; gap: 0.4rem; align-items: center; }
+.en-linea input, .en-linea select { width: auto; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+th, td { text-align: left; padding: 0.45rem 0.5rem; border-bottom: 1px solid var(--borde); vertical-align: top; }
+th { background: #eef1f6; }
+td.acciones { white-space: nowrap; }
+td.acciones button { margin: 0.1rem; }
+
+.chip {
+  display: inline-block;
+  background: #e7eef8;
+  color: var(--azul);
+  border-radius: 999px;
+  padding: 0.05rem 0.6rem;
+  font-size: 0.82rem;
+  margin: 0.15rem 0.2rem 0.15rem 0;
+}
+.meta { color: var(--suave); font-size: 0.88rem; margin: 0 0 0.4rem; }
+.vacio { color: var(--suave); font-style: italic; }
+
+.pregunta, .detalle { display: flex; gap: 1rem; }
+.pregunta { cursor: pointer; }
+.pregunta:hover { border-color: var(--azul); }
+.puntaje {
+  min-width: 3.5rem;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--verde);
+}
+.puntaje small { display: block; font-size: 0.7rem; font-weight: normal; color: var(--suave); }
+.puntaje.negativo { color: var(--rojo); }
+.puntaje.grande { font-size: 2rem; }
+.comentario p { margin: 0 0 0.4rem; }
+#volver { margin-bottom: 1rem; }
+.perfil { background: #eef6f0; }
+
+#aviso {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  max-width: 1200px;
+  margin: 0.6rem auto 0;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+#aviso.ok { background: #e3f4e9; color: var(--verde); border: 1px solid #b7dfc5; }
+#aviso.error { background: #fbe9e7; color: var(--rojo); border: 1px solid #f1c0ba; }

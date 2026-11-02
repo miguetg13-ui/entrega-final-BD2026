@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Foro de Ayuda Técnica</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header>
+    <h1>Foro de Ayuda Técnica</h1>
+    <nav id="menu">
+      <button data-vista="foro" class="activo">Foro</button>
+      <button data-vista="preguntas">Preguntas</button>
+      <button data-vista="comentarios">Comentarios</button>
+      <button data-vista="usuarios">Usuarios</button>
+      <button data-vista="temas">Temas</button>
+      <button data-vista="etiquetas">Etiquetas</button>
+      <button data-vista="consultas">Consultas</button>
+    </nav>
+  </header>
+
+  <!-- Avisos de éxito o error (404, 409, 422, API apagada) en palabras del usuario -->
+  <div id="aviso" hidden></div>
+
+  <main id="contenido"></main>
+
+  <!-- config.js define la URL de la API. Todo dato que se ve sale de ahí: no hay datos escritos en la página -->
+  <script src="config.js"></script>
+  <script src="api.js"></script>
+  <script src="crud.js"></script>
+  <script src="foro.js"></script>
+  <script src="consultas.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+# Levanta las tres capas de la Entrega Final:
+#   db  -> PostgreSQL con el DDL y los datos del foro   (localhost:5434)
+#   api -> FastAPI + psycopg2                            (http://127.0.0.1:8000/docs)
+#   app -> la aplicación web (HTML + JavaScript)         (http://localhost:5500)
+# Uso:  docker compose up -d --build        Apagar:  docker compose down
+# Borrar la base y volver a crearla desde cero:  docker compose down -v
+services:
+  db:
+    image: postgres:18
+    container_name: foro-final-db
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5434:5432"
+    volumes:
+      # Solo se ejecutan la primera vez, cuando la base está vacía
+      - ./db/01_ddl_completo.sql:/docker-entrypoint-initdb.d/01_ddl_completo.sql:ro
+      - ./db/02_datos.sql:/docker-entrypoint-initdb.d/02_datos.sql:ro
+      - ./db:/db:ro
+      - datos-foro:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 3s
+      retries: 30
+
+  api:
+    build: ./api
+    container_name: foro-final-api
+    env_file: .env
+    environment:
+      DB_HOST: db        # dentro de Docker la base se llama "db", no localhost
+      DB_PORT: "5432"
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  app:
+    image: nginx:1.27-alpine
+    container_name: foro-final-app
+    volumes:
+      - ./app:/usr/share/nginx/html:ro
+    ports:
+      - "5500:80"
+    depends_on:
+      - api
+
+volumes:
+  datos-foro:

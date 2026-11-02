@@ -1,0 +1,7 @@
+# Credenciales: el .env real nunca se sube
+.env
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
